@@ -87,7 +87,6 @@ gulp.task('webpack:build', function(callback) {
   prodConfig.plugins = prodConfig.plugins.concat(
     new webpack.DefinePlugin({
       'process.env': {
-        // This has effect on the react lib size
         'NODE_ENV': JSON.stringify('production'),
       },
     }),

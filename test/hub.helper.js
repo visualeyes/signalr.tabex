@@ -5,7 +5,7 @@ const expect = chai.expect;
 const should = chai.should();
 const path = require('path');
 
-let Helpers = require(path.join(__dirname, '..', 'src/hub.helper'));
+let Helpers = require(path.join(__dirname, '..', 'src/hub-helper'));
 
 describe('Helpers', () => {
   describe('#maximizeInvokeResponse', () => {
