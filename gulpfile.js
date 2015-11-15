@@ -14,6 +14,7 @@ var coveralls = require('gulp-coveralls');
 var del = require('del');
 var isparta = require('isparta');
 var bump = require('gulp-bump');
+var git = require('gulp-git');
 
 // Initialize the babel transpiler so ES2015 files gets compiled
 // when they're loaded
@@ -133,16 +134,29 @@ gulp.task('bump', ['build'], function () {
     .pipe(gulp.dest('./'));
 });
 
-gulp.task('tag', ['bump'], function () {
+function getVersion() {
   var pkg = require('./package.json');
   var v = 'v' + pkg.version;
   var message = 'Release ' + v;
+  return {
+    version: v,
+    message: message
+  }
+}
 
+gulp.task('commit', ['bump'], function (cb) {
+  var versionInfo = getVersion();
   return gulp.src('./')
-    .pipe(git.commit(message))
-    .pipe(git.tag(v, message))
-    .pipe(git.push('origin', 'master', '--tags'))
-    .pipe(gulp.dest('./'));
+          .pipe(git.add())
+          .pipe(git.commit(versionInfo.message));
+});
+gulp.task('tag', ['commit'], function (cb) {
+  var versionInfo = getVersion();
+
+  git.tag(versionInfo.version, versionInfo.message, function(err) {
+    if(err) throw err;
+    git.push('origin', 'master', { args: '--tags' }, cb);
+  });
 });
 
 gulp.task('npm', ['tag'], function (done) {
