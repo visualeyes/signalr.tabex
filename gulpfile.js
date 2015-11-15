@@ -1,24 +1,24 @@
 'use strict';
 
-let path = require('path');
-let gulp = require('gulp');
-let gutil = require('gulp-util');
-let webpack = require('webpack');
-let webpackConfig = require('./webpack.config');
-let eslint = require('gulp-eslint');
-let excludeGitignore = require('gulp-exclude-gitignore');
-let mocha = require('gulp-mocha');
-let istanbul = require('gulp-istanbul');
-let plumber = require('gulp-plumber');
-let coveralls = require('gulp-coveralls');
-let del = require('del');
-let isparta = require('isparta');
+var path = require('path');
+var gulp = require('gulp');
+var gutil = require('gulp-util');
+var webpack = require('webpack');
+var webpackConfig = require('./webpack.config');
+var eslint = require('gulp-eslint');
+var excludeGitignore = require('gulp-exclude-gitignore');
+var mocha = require('gulp-mocha');
+var istanbul = require('gulp-istanbul');
+var plumber = require('gulp-plumber');
+var coveralls = require('gulp-coveralls');
+var del = require('del');
+var isparta = require('isparta');
 
 // Initialize the babel transpiler so ES2015 files gets compiled
 // when they're loaded
 require('babel-core/register');
 
-let paths = {
+var paths = {
   srcDir: 'src',
   srcSrc: 'src/**/*.js',
   test: 'test',
@@ -45,7 +45,7 @@ gulp.task('pre-test', function() {
 });
 
 gulp.task('test', ['pre-test'], function(cb) {
-  let mochaErr;
+  var mochaErr;
 
   gulp.src(paths.testSrc)
   .pipe(mocha())
@@ -82,7 +82,7 @@ gulp.task('build-dev', ['webpack:build-dev'], function() {
 
 gulp.task('webpack:build', function(callback) {
   // modify some webpack config options
-  const prodConfig = Object.create(webpackConfig);
+  var prodConfig = Object.create(webpackConfig);
 
   prodConfig.plugins = prodConfig.plugins.concat(
     new webpack.DefinePlugin({
@@ -109,11 +109,11 @@ function updateDevConfig(devConfig) {
   return devConfig;
 }
 
-let devConfig = Object.create(webpackConfig);
+var devConfig = Object.create(webpackConfig);
 devConfig.devtool = 'sourcemap';
 devConfig = updateDevConfig(devConfig);
 
-const devCompiler = webpack(devConfig);
+var devCompiler = webpack(devConfig);
 
 gulp.task('webpack:build-dev', function(callback) {
   // run webpack
