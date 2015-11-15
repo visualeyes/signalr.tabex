@@ -4,9 +4,9 @@ const expect = chai.expect;
 const should = chai.should();
 const path = require('path');
 
-const messageBus = require(path.join(__dirname, 'messagebus.helper'))
-const connection = require(path.join(__dirname, 'connection.helper'))
-let channelHandler = require(path.join(__dirname, '..', 'src/channel.handler'));
+const messageBus = require(path.join(__dirname, 'messagebus-helper'))
+const connection = require(path.join(__dirname, 'connection-helper'))
+let channelHandler = require(path.join(__dirname, '..', 'src/channel-handler'));
 
 
 describe('channelHandler', () => {

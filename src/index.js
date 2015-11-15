@@ -1,4 +1,3 @@
-import Connection from './connection';
-import Hubs from './hubs';
+import HubManager from './hub-manager';
 
-export default { Connection, Hubs };
+export default { HubManager };
