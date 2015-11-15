@@ -13,6 +13,7 @@ var plumber = require('gulp-plumber');
 var coveralls = require('gulp-coveralls');
 var del = require('del');
 var isparta = require('isparta');
+var bump = require('gulp-bump');
 
 // Initialize the babel transpiler so ES2015 files gets compiled
 // when they're loaded
@@ -125,3 +126,30 @@ gulp.task('webpack:build-dev', function(callback) {
     callback();
   });
 });
+
+gulp.task('bump', ['build'], function () {
+  return gulp.src(['./package.json', './bower.json'])
+    .pipe(bump())
+    .pipe(gulp.dest('./'));
+});
+
+gulp.task('tag', ['bump'], function () {
+  var pkg = require('./package.json');
+  var v = 'v' + pkg.version;
+  var message = 'Release ' + v;
+
+  return gulp.src('./')
+    .pipe(git.commit(message))
+    .pipe(git.tag(v, message))
+    .pipe(git.push('origin', 'master', '--tags'))
+    .pipe(gulp.dest('./'));
+});
+
+gulp.task('npm', ['tag'], function (done) {
+  require('child_process').spawn('npm', ['publish'], { stdio: 'inherit' })
+    .on('close', done);
+});
+
+
+gulp.task('ci', ['build']);
+gulp.task('release', ['npm']);

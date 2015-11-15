@@ -1,5 +1,6 @@
 {
   "name": "signalr.tabex",
+  "version": "1.0.0",
   "homepage": "https://github.com/visualeyes/signalr.tabex",
   "authors": [
     "John McKim <johncmckim@gmail.com>"
