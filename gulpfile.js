@@ -1,22 +1,24 @@
-const path = require('path');
-const gulp = require('gulp');
-const gutil = require('gulp-util');
-const webpack = require('webpack');
-const webpackConfig = require('./webpack.config');
-const eslint = require('gulp-eslint');
-const excludeGitignore = require('gulp-exclude-gitignore');
-const mocha = require('gulp-mocha');
-const istanbul = require('gulp-istanbul');
-const plumber = require('gulp-plumber');
-const coveralls = require('gulp-coveralls');
-const del = require('del');
-const isparta = require('isparta');
+'use strict';
+
+let path = require('path');
+let gulp = require('gulp');
+let gutil = require('gulp-util');
+let webpack = require('webpack');
+let webpackConfig = require('./webpack.config');
+let eslint = require('gulp-eslint');
+let excludeGitignore = require('gulp-exclude-gitignore');
+let mocha = require('gulp-mocha');
+let istanbul = require('gulp-istanbul');
+let plumber = require('gulp-plumber');
+let coveralls = require('gulp-coveralls');
+let del = require('del');
+let isparta = require('isparta');
 
 // Initialize the babel transpiler so ES2015 files gets compiled
 // when they're loaded
 require('babel-core/register');
 
-const paths = {
+let paths = {
   srcDir: 'src',
   srcSrc: 'src/**/*.js',
   test: 'test',
