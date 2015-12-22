@@ -6,7 +6,7 @@
     "John McKim <johncmckim@gmail.com>"
   ],
   "description": "Signalr Client using tabex",
-  "main": "dist/signalr.tabex",
+  "main": "lib/signalr.tabex.js",
   "moduleType": [],
   "keywords": [
     "tab",
