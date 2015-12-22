@@ -1,6 +1,6 @@
 {
   "name": "signalr-tabex",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "SignalR Client using Tabex",
   "repository": {
     "type": "git",
@@ -12,7 +12,7 @@
     "url": "https://github.com/visualeyes/signalr.tabex/issues"
   },
   "homepage": "https://github.com/visualeyes/signalr.tabex#readme",
-  "main": "lib/index.js",
+  "main": "index.js",
   "dependencies": {
     "tabex": "^1.0.3"
   },

@@ -13,6 +13,10 @@ module.exports = {
     path: path.resolve(__dirname, './lib/'),
     publicPath: 'lib/',
     filename: '[name].js',
+    // export itself to a global var
+    libraryTarget: 'commonjs',
+    // name of the global var: "Foo"
+    //library: 'SignalrTabex'
   },
 
   resolve: {
