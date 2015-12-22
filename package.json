@@ -1,6 +1,6 @@
 {
   "name": "signalr-tabex",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "SignalR Client using Tabex",
   "repository": {
     "type": "git",
@@ -38,6 +38,7 @@
     "gulp-mocha": "^2.1.3",
     "gulp-nsp": "^2.1.0",
     "gulp-plumber": "^1.0.1",
+    "gulp-rename": "^1.2.2",
     "gulp-util": "^3.0.7",
     "imports-loader": "^0.6.5",
     "isparta": "^3.5.1",

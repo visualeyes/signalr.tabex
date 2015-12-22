@@ -15,6 +15,7 @@ var del = require('del');
 var isparta = require('isparta');
 var bump = require('gulp-bump');
 var git = require('gulp-git');
+var rename = require('gulp-rename');
 
 // Initialize the babel transpiler so ES2015 files gets compiled
 // when they're loaded
@@ -72,7 +73,11 @@ gulp.task('clean', function() {
   return del('lib');
 });
 
-gulp.task('build', ['webpack:build']);
+gulp.task('build', ['webpack:build'], function() {
+  return gulp.src('./lib/signalr-tabex.js')
+          .pipe(rename('index.js'))
+          .pipe(gulp.dest('./'));
+});
 
 gulp.task('build-dev', ['webpack:build-dev'], function() {
   gulp.watch([
