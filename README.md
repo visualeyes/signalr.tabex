@@ -4,9 +4,9 @@
 SignalR Client using tabex
 
 ````js
-import HubManager  from 'signalr-tabex'
+import { HubManager } from 'signalr-tabex'
 
-const fooHub = HubManager.createHub('foo');
+const fooHub = HubManager.createHub('foo', 'http://localhost/signalr');
 
 fooHub.listen('bar', (arg1) => {
   console.log(arg1);
