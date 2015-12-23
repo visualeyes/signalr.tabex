@@ -11,11 +11,9 @@ export default {
     lastData = null;
   },
 
-  log(msg) {
-
-  },
+  log(msg) {},
 
   send(data) {
     lastData = data;
-  }
-}
+  },
+};

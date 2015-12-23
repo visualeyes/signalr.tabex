@@ -3,8 +3,6 @@
 var path = require('path');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
-var webpack = require('webpack');
-var webpackConfig = require('./webpack.config');
 var eslint = require('gulp-eslint');
 var excludeGitignore = require('gulp-exclude-gitignore');
 var mocha = require('gulp-mocha');
@@ -16,6 +14,8 @@ var isparta = require('isparta');
 var bump = require('gulp-bump');
 var git = require('gulp-git');
 var rename = require('gulp-rename');
+var babel = require('gulp-babel');
+var uglify = require('gulp-uglifyjs');
 
 // Initialize the babel transpiler so ES2015 files gets compiled
 // when they're loaded
@@ -24,6 +24,8 @@ require('babel-core/register');
 var paths = {
   srcDir: 'src',
   srcSrc: 'src/**/*.js',
+  distDir: 'dist',
+  distSrc: 'dist/**/*.js',
   test: 'test',
   testSrc: 'test/**/*.js',
 };
@@ -69,67 +71,26 @@ gulp.task('coveralls', ['test'], function() {
   }
 });
 
+gulp.task('build', ['concat']);
+
+gulp.task('concat', ['compile'], function () {
+  return gulp.src(paths.distSrc)
+        .pipe(uglify('signalr.tabex.min.js', {
+          outSourceMap: true
+        }))
+        .pipe(gulp.dest('.'));
+});
+
+gulp.task('compile', ['clean'], function () {
+  return gulp.src(paths.srcSrc)
+            .pipe(babel({
+              presets: ['es2015']
+            }))
+            .pipe(gulp.dest(paths.distDir));
+});
+
 gulp.task('clean', function() {
-  return del('lib');
-});
-
-gulp.task('build', ['webpack:build'], function() {
-  return gulp.src('./lib/signalr-tabex.js')
-          .pipe(rename('index.js'))
-          .pipe(gulp.dest('./'));
-});
-
-gulp.task('build-dev', ['webpack:build-dev'], function() {
-  gulp.watch([
-    paths.srcSrc,
-  ], [
-    'webpack:build-dev',
-  ]);
-});
-
-gulp.task('webpack:build', function(callback) {
-  // modify some webpack config options
-  var prodConfig = Object.create(webpackConfig);
-
-  prodConfig.plugins = prodConfig.plugins.concat(
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production'),
-      },
-    }),
-    new webpack.optimize.DedupePlugin()
-  );
-
-  // run webpack
-  webpack(prodConfig, function(err, stats) {
-    if (err) throw new gutil.PluginError('webpack:build', err);
-    gutil.log('[webpack:build]', stats.toString({
-      colors: true,
-    }));
-    callback();
-  });
-});
-
-function updateDevConfig(devConfig) {
-  devConfig.debug = true;
-  return devConfig;
-}
-
-var devConfig = Object.create(webpackConfig);
-devConfig.devtool = 'sourcemap';
-devConfig = updateDevConfig(devConfig);
-
-var devCompiler = webpack(devConfig);
-
-gulp.task('webpack:build-dev', function(callback) {
-  // run webpack
-  devCompiler.run(function(err, stats) {
-    if (err) throw new gutil.PluginError('webpack', err);
-    gutil.log('[webpack:build-dev]', stats.toString({
-      colors: true,
-    }));
-    callback();
-  });
+  return del(paths.distDir);
 });
 
 gulp.task('bump', ['build'], function () {

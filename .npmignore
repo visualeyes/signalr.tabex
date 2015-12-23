@@ -2,10 +2,13 @@
 .babelrc
 .editorconfig
 .eslintrc
+.eslintignore
 .gitattributes
 .gitignore
 .npmignore
-.travis.xml
+.travis.yml
+gulpfile.js
 docs
+src
 test
 coverage

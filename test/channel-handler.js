@@ -4,9 +4,9 @@ const expect = chai.expect;
 const should = chai.should();
 const path = require('path');
 
-const messageBus = require(path.join(__dirname, 'messagebus-helper'))
-const connection = require(path.join(__dirname, 'connection-helper'))
-let channelHandler = require(path.join(__dirname, '..', 'src/channel-handler'));
+const messageBus = require(path.join(__dirname, 'messagebus-helper'));
+const connection = require(path.join(__dirname, 'connection-helper'));
+const channelHandler = require(path.join(__dirname, '..', 'src/channel-handler'));
 
 
 describe('channelHandler', () => {
@@ -35,13 +35,13 @@ describe('channelHandler', () => {
       () => {
         channelHandler.sendInvokeMessage({}, {
           hub: {},
-          method: null
+          method: null,
         })
       }.should.throw(Error);
       () => {
         channelHandler.sendInvokeMessage({}, {
           hub: null,
-          method: {}
+          method: {},
         })
       }.should.throw(Error);
     });
@@ -63,7 +63,7 @@ describe('channelHandler', () => {
       channelHandler.sendInvokeMessage(connection, {
         hub: 'hub',
         method: 'method',
-        args: 1
+        args: 1,
       });
 
       let lastData = connection.getLastSentData();
@@ -77,7 +77,7 @@ describe('channelHandler', () => {
       channelHandler.sendInvokeMessage(connection, {
         hub: 'hub',
         method: 'method',
-        args: [1]
+        args: [1],
       });
 
       let lastData = connection.getLastSentData();
@@ -100,7 +100,7 @@ describe('channelHandler', () => {
       it('processes invoke progress response', () => {
         channelHandler.processSignalRMessage(connection, messageBus, {
           I: 'hub.method',
-          progress: { id: 'id', data: 'data' }
+          progress: { id: 'id', data: 'data' },
         });
 
         let lastEmit = messageBus.getLastEmit();
@@ -109,7 +109,7 @@ describe('channelHandler', () => {
       it('processes invoke error response', () => {
         channelHandler.processSignalRMessage(connection, messageBus, {
           I: 'hub.method',
-          error: 'error'
+          error: 'error',
         });
 
         let lastEmit = messageBus.getLastEmit();

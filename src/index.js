@@ -1,3 +1,3 @@
 import HubManager from './hub-manager';
 
-export default { HubManager };
+export { HubManager };

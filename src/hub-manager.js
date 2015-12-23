@@ -1,9 +1,10 @@
 import Connection from './connection';
-import channelHandler from 'channel-handler';
+import channelHandler from './channel-handler';
 
-const messageBus = Connection.getMessageBus();
 
-function createHub(hubname) {
+function createHub(hubname, url) {
+  const messageBus = Connection.getMessageBus(url);
+
   return {
     invoke(method, args) {
       messageBus.emit(Connection.INVOKE_EVT_NAME, {
@@ -14,7 +15,7 @@ function createHub(hubname) {
     },
 
     listen(evtName, callback) {
-      return messageBus.on(channelHandler.getHubEvtName(hubname, evtName), function(message) {
+      return messageBus.on(channelHandler.getHubEvtName(hubname, evtName), (message) => {
         callback.apply(null, message.args);
       });
     },
