@@ -3,7 +3,9 @@ import channelHandler from './channel-handler';
 
 
 function createHub(hubname, url) {
-  const messageBus = Connection.getMessageBus(url);
+  const messageBus = Connection.getMessageBus(hubname, url);
+
+  messageBus.emit(Connection.ENSURE_STARTED_EVT_NAME, {}, true);
 
   return {
     invoke(method, args) {
