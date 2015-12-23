@@ -1,6 +1,6 @@
 {
   "name": "signalr-tabex",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "SignalR Client using Tabex",
   "repository": {
     "type": "git",
