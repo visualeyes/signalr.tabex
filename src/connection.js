@@ -14,13 +14,11 @@ function connectionFactory(hubname, signalRUrl) {
   const messageBus = tabex.client();
   const hubs = {};
 
-  messageBus.emit(REGISTERHUB_EVT_NAME, hubname, false); // ensure other tabs register the hub
-
   function registerHub(hubName) {
     hubs[hubName] = true; // registers the hub
   }
 
-  registerHub(hubname);
+  registerHub(hubname); // register this hub immediately
 
   let isMaster = false;
   let isConnected = false;
@@ -127,6 +125,8 @@ export default {
     }
 
     const messageBus = messageBusses[url];
+
+    messageBus.emit(REGISTERHUB_EVT_NAME, hubname, true); // ensure all tabs register the hub
 
     return messageBus;
   },
