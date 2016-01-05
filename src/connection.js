@@ -89,7 +89,7 @@ function connectionFactory(hubname, signalRUrl) {
     isMaster = data.node_id === data.master_id;
 
     if (isMaster && !connection) {
-      createConnection(true);
+      createConnection();
       return;
     }
 
