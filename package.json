@@ -12,7 +12,7 @@
     "url": "https://github.com/visualeyes/signalr.tabex/issues"
   },
   "homepage": "https://github.com/visualeyes/signalr.tabex#readme",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "dependencies": {
     "tabex": "^1.0.3"
   },
